@@ -19,6 +19,7 @@ package com.example.android.eggtimernotifications.util
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.example.android.eggtimernotifications.R
 
 // Notification ID.
@@ -64,7 +65,9 @@ fun NotificationManager.sendNotification(messageBody: String, appContext: Contex
 
     // TODO: Step 1.4 call notify
     notify(NOTIFICATION_ID, builder.build())
-
 }
+
+fun getNotificationManager(context: Context): NotificationManager =
+    ContextCompat.getSystemService(context, NotificationManager::class.java) as NotificationManager
 
 // TODO: Step 1.14 Cancel all notifications

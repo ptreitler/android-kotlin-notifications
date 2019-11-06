@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.android.eggtimernotifications.R
 import com.example.android.eggtimernotifications.databinding.FragmentEggTimerBinding
+import com.example.android.eggtimernotifications.util.getNotificationManager
 
 class EggTimerFragment : Fragment() {
 
@@ -70,9 +71,7 @@ class EggTimerFragment : Fragment() {
             description = "Time for breakfast"
         }
 
-        val notificationManager =
-            requireActivity().getSystemService(NotificationManager::class.java)
-        notificationManager?.createNotificationChannel(notificationChannel)
+        getNotificationManager(requireContext()).createNotificationChannel(notificationChannel)
     }
 
     companion object {
