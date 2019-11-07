@@ -76,5 +76,3 @@ fun NotificationManager.sendNotification(messageBody: String, appContext: Contex
 
 fun getNotificationManager(context: Context): NotificationManager =
     ContextCompat.getSystemService(context, NotificationManager::class.java) as NotificationManager
-
-// TODO: Step 1.14 Cancel all notifications
