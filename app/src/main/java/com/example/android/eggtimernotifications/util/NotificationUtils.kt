@@ -25,6 +25,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.example.android.eggtimernotifications.MainActivity
 import com.example.android.eggtimernotifications.R
+import com.example.android.eggtimernotifications.receiver.SnoozeReceiver
 
 // Notification ID.
 private const val NOTIFICATION_ID = 0
@@ -53,7 +54,13 @@ fun NotificationManager.sendNotification(messageBody: String, appContext: Contex
         .bigPicture(eggImage)
         .bigLargeIcon(null)
 
-    // TODO: Step 2.2 add snooze action
+    val snoozeIntent = Intent(appContext, SnoozeReceiver::class.java)
+    val snoozePendingIntent = PendingIntent.getBroadcast(
+        appContext,
+        REQUEST_CODE,
+        snoozeIntent,
+        FLAGS
+    )
 
     val builder = NotificationCompat.Builder(
         appContext,
@@ -69,6 +76,11 @@ fun NotificationManager.sendNotification(messageBody: String, appContext: Contex
         .setAutoCancel(true)
         .setStyle(bigPictureStyle)
         .setLargeIcon(eggImage)
+        .addAction(
+            R.drawable.egg_icon,
+            appContext.getString(R.string.snooze),
+            snoozePendingIntent
+        )
 
     // TODO: Step 2.3 add snooze action
 
