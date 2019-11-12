@@ -71,6 +71,7 @@ class EggTimerFragment : Fragment() {
             lightColor = Color.RED
             enableVibration(true)
             description = "Time for breakfast"
+            setShowBadge(false)
         }
 
         getNotificationManager(requireContext()).createNotificationChannel(notificationChannel)
