@@ -24,6 +24,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -31,6 +32,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.android.eggtimernotifications.R
 import com.example.android.eggtimernotifications.databinding.FragmentEggTimerBinding
 import com.example.android.eggtimernotifications.util.getNotificationManager
+import com.google.firebase.messaging.FirebaseMessaging
 
 class EggTimerFragment : Fragment() {
 
@@ -62,6 +64,8 @@ class EggTimerFragment : Fragment() {
             )
         }
 
+        subscribeToTopic()
+
         return binding.root
     }
 
@@ -80,6 +84,19 @@ class EggTimerFragment : Fragment() {
         }
 
         getNotificationManager(requireContext()).createNotificationChannel(notificationChannel)
+    }
+
+    private fun subscribeToTopic() {
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+            .addOnCompleteListener { task ->
+                val message = if (task.isSuccessful) {
+                    getString(R.string.message_subscribed)
+                } else {
+                    getString(R.string.message_subscribe_failed)
+                }
+
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
     }
 
     companion object {
